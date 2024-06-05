@@ -1,0 +1,43 @@
+<definitions name="SumService"
+             targetNamespace="http://www.examples.com/wsdl/SumService.wsdl"
+             xmlns:tns="http://www.examples.com/wsdl/SumService.wsdl"
+             xmlns:xsd1="http://www.examples.com/definitions"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+  <message name="SumRequest">
+    <part name="a" type="xsd:int"/>
+    <part name="b" type="xsd:int"/>
+  </message>
+
+  <message name="SumResponse">
+    <part name="result" type="xsd:int"/>
+  </message>
+
+  <portType name="SumPortType">
+    <operation name="Sum">
+      <input message="tns:SumRequest"/>
+      <output message="tns:SumResponse"/>
+    </operation>
+  </portType>
+
+  <binding name="SumBinding" type="tns:SumPortType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="Sum">
+      <soap:operation soapAction="Sum"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="SumService">
+    <documentation>My Sum Service</documentation>
+    <port name="SumPort" binding="tns:SumBinding">
+      <soap:address location="http://localhost:8000/wsdl"/>
+    </port>
+  </service>
+</definitions>
